@@ -8,11 +8,6 @@ import Account from "./models/Account"
 import Task from "./models/Task"
 import Collapsibles from './Collapsibles';
 
-/*
-TODO:
-1. 
-*/
-
 function App() {
 
   const accounts = [new Account('Apple Inc.', [new Task("Slap all the execs 1v1 basketball","They're getting cooked"),

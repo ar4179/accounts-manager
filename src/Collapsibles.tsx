@@ -8,7 +8,7 @@ const Collapsibles: React.FC<{accounts: Account[]}> = (props) => {
     return (
         <div>
             {props.accounts.map((account) => (
-                <Collapsible header={account.name}> Hahahahah this is random text </Collapsible>
+                <Collapsible header={account.name}> <ul> {account.tasks.map((task) => (<li>{task.title}</li>))} </ul> </Collapsible>
             ))}
         </div>
     );
