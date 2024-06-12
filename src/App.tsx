@@ -1,12 +1,12 @@
 import './App.css';
-import Collapsible from "./Collapsible";
+import Collapsible from "./components/Collapsible";
 import React from "react";
 import "./assets/index.css";
 import "./assets/icons.css";
 
 import Account from "./models/Account"
 import Task from "./models/Task"
-import Collapsibles from './Collapsibles';
+import Collapsibles from './components/Collapsibles';
 
 function App() {
 
