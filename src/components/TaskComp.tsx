@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import Task from "../models/Task";
-import Slider from '@mui/material/Slider';
-import Box from '@mui/material/Box';
+import Slider from "@mui/material/Slider";
+import Box from "@mui/material/Box";
 
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
-const TaskComp: React.FC<{task: Task}> = (props) => {
+const TaskComp: React.FC<{ task: Task }> = (props) => {
     return (
         <div>
             {props.task.title}
@@ -15,7 +15,7 @@ const TaskComp: React.FC<{task: Task}> = (props) => {
             <Box sx={{ width: 300 }}>
                 <Slider
                     aria-label="Temperature"
-                    defaultValue={30}
+                    defaultValue={props.task.percentComplete}
                     getAriaValueText={valuetext}
                     valueLabelDisplay="auto"
                     shiftStep={20}
@@ -25,9 +25,8 @@ const TaskComp: React.FC<{task: Task}> = (props) => {
                     max={100}
                 />
             </Box>
-            
         </div>
     );
-}
+};
 
 export default TaskComp;
