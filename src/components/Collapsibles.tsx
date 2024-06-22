@@ -1,7 +1,6 @@
 import React from "react";
 
 import Collapsible from "./Collapsible";
-import Account from "../models/Account";
 import TaskComps from "./TaskComps";
 
 // input a list of accounts and ouput collapsible for each one
@@ -11,13 +10,17 @@ import TaskComps from "./TaskComps";
 
 // inside TasksComp function do another map that maps each task item to <TaskComp title={task.title} />
 
-const Collapsibles: React.FC<{ accounts: Account[] }> = (props) => {
+const Collapsibles: React.FC<{ accounts: any[] }> = (props) => {
     return (
         <div>
             {props.accounts.map((account) => (
-                <Collapsible header={account.name}>
+                <Collapsible key={account._id} header={account.name}>
                     {" "}
-                    <TaskComps tasks={account.tasks} />{" "}
+                    <TaskComps
+                        key={account._id}
+                        tasks={account.tasks}
+                        account_id={account._id}
+                    />{" "}
                 </Collapsible>
             ))}
         </div>

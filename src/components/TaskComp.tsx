@@ -1,5 +1,4 @@
 import React from "react";
-import Task from "../models/Task";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
 
@@ -7,7 +6,7 @@ function valuetext(value: number) {
     return `${value}°C`;
 }
 
-const TaskComp: React.FC<{ task: Task }> = (props) => {
+const TaskComp: React.FC<{ task: any }> = (props) => {
     return (
         <div>
             {props.task.title}
@@ -23,6 +22,7 @@ const TaskComp: React.FC<{ task: Task }> = (props) => {
                     marks
                     min={0}
                     max={100}
+                    name={props.task._id}
                 />
             </Box>
         </div>
