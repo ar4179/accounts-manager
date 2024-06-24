@@ -30,7 +30,12 @@ function valuetext(value: number) {
     return `${value}°C`;
 }
 
-const TaskComps: React.FC<{ tasks: any[]; account_id: String }> = (props) => {
+const TaskComps: React.FC<{
+    tasks: any[];
+    account_id: String;
+    collapsibleState: any;
+    setCollapsibleState: any;
+}> = (props) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -91,6 +96,7 @@ const TaskComps: React.FC<{ tasks: any[]; account_id: String }> = (props) => {
         );
         console.log(response_account);
         handleClose();
+        props.setCollapsibleState(!props.collapsibleState);
     }
     return (
         <div>

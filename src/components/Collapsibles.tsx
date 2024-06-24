@@ -10,7 +10,11 @@ import TaskComps from "./TaskComps";
 
 // inside TasksComp function do another map that maps each task item to <TaskComp title={task.title} />
 
-const Collapsibles: React.FC<{ accounts: any[] }> = (props) => {
+const Collapsibles: React.FC<{
+    accounts: any[];
+    collapsibleState: any;
+    setCollapsibleState: any;
+}> = (props) => {
     return (
         <div>
             {props.accounts.map((account) => (
@@ -20,6 +24,8 @@ const Collapsibles: React.FC<{ accounts: any[] }> = (props) => {
                         key={account._id}
                         tasks={account.tasks}
                         account_id={account._id}
+                        collapsibleState={props.collapsibleState}
+                        setCollapsibleState={props.setCollapsibleState}
                     />{" "}
                 </Collapsible>
             ))}

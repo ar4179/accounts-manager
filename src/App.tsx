@@ -3,21 +3,25 @@ import React from "react";
 import "./assets/index.css";
 import "./assets/icons.css";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Collapsibles from "./components/Collapsibles";
 
 function App() {
     const [accounts, setAccounts] = useState([]);
 
-    async function fetchAccounts() {
-        const response = await axios.get(
-            process.env.REACT_APP_DB_URL + "api/v1/accounts"
-        );
+    const [collapsibleState, setCollapsibleState] = useState(false);
 
-        setAccounts(response.data.data.accountsWithTasks);
-    }
-    fetchAccounts();
+    useEffect(() => {
+        async function fetchAccounts() {
+            const response = await axios.get(
+                process.env.REACT_APP_DB_URL + "api/v1/accounts"
+            );
+
+            setAccounts(response.data.data.accountsWithTasks);
+        }
+        fetchAccounts();
+    }, [collapsibleState]);
 
     return (
         <div>
@@ -31,7 +35,11 @@ function App() {
             <div className="row">
                 <div className="col-2"></div>
                 <div className="col-8">
-                    <Collapsibles accounts={accounts} />
+                    <Collapsibles
+                        accounts={accounts}
+                        collapsibleState={collapsibleState}
+                        setCollapsibleState={setCollapsibleState}
+                    />
                 </div>
                 <div className="col-2"></div>
             </div>
