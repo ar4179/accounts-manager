@@ -17,6 +17,13 @@ const TaskComp: React.FC<{ task: any }> = (props) => {
                     defaultValue={props.task.percentComplete}
                     getAriaValueText={valuetext}
                     valueLabelDisplay="auto"
+                    color={
+                        props.task.priority === "normal"
+                            ? "primary"
+                            : props.task.priority === "high"
+                            ? "error"
+                            : "success"
+                    }
                     shiftStep={20}
                     step={10}
                     marks
