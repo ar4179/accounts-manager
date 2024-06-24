@@ -45,6 +45,14 @@ const TaskComps: React.FC<{
         setPriority(event.target.value as string);
     };
 
+    async function submitDeletion(event: any) {
+        event.preventDefault();
+        await axios.delete(
+            process.env.REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id
+        );
+        props.setCollapsibleState(!props.collapsibleState);
+    }
+
     const [tasks, setTasks] = React.useState(false);
     async function handleSubmitSave(event: any) {
         event.preventDefault();
@@ -102,14 +110,28 @@ const TaskComps: React.FC<{
                 {props.tasks.map((task) => (
                     <TaskComp key={task._id} task={task} />
                 ))}
-                <Stack spacing={2} direction="row">
-                    <Button variant="contained" type="submit">
-                        Save
-                    </Button>
-                    <Button variant="contained" onClick={handleOpen}>
-                        Add
-                    </Button>
-                </Stack>
+                <div className="row">
+                    <div className="col-4">
+                        <Stack spacing={2} direction="row">
+                            <Button variant="contained" type="submit">
+                                Save
+                            </Button>
+                            <Button variant="contained" onClick={handleOpen}>
+                                Add
+                            </Button>
+                        </Stack>
+                    </div>
+                    <div className="col-6"></div>
+                    <div className="col-2">
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={submitDeletion}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </div>
             </form>
             <Modal
                 open={open}
