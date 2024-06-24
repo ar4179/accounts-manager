@@ -40,8 +40,7 @@ const TaskComps: React.FC<{
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [age, setPriority] = React.useState("");
-
+    const [priority, setPriority] = React.useState("");
     const handleChange = (event: SelectChangeEvent) => {
         setPriority(event.target.value as string);
     };
@@ -63,8 +62,8 @@ const TaskComps: React.FC<{
                 );
                 promises.push(response);
             });
-            const responses = await Promise.all(promises);
-            console.log(responses);
+            await Promise.all(promises);
+            alert("Task Progress Saved Successfully!");
             setTasks(!tasks);
         }
         updateTasks();
@@ -88,13 +87,12 @@ const TaskComps: React.FC<{
         let currTasks = response_currTasks.data.data.account.tasks;
         currTasks.push(newTaskID);
 
-        const response_account = await axios.patch(
+        await axios.patch(
             process.env.REACT_APP_DB_URL +
                 "api/v1/accounts/" +
                 props.account_id,
             { tasks: currTasks }
         );
-        console.log(response_account);
         handleClose();
         props.setCollapsibleState(!props.collapsibleState);
     }
@@ -154,7 +152,7 @@ const TaskComps: React.FC<{
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    value={age}
+                                    value={priority}
                                     label="Priority"
                                     name="priority"
                                     onChange={handleChange}
