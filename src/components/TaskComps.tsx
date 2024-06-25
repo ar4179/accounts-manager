@@ -108,7 +108,12 @@ const TaskComps: React.FC<{
         <div>
             <form onSubmit={handleSubmitSave}>
                 {props.tasks.map((task) => (
-                    <TaskComp key={task._id} task={task} />
+                    <TaskComp
+                        key={task._id}
+                        task={task}
+                        collapsibleState={props.collapsibleState}
+                        setCollapsibleState={props.setCollapsibleState}
+                    />
                 ))}
                 <div className="row">
                     <div className="col-4">

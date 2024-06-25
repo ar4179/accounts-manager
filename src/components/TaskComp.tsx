@@ -5,12 +5,17 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import axios from "axios";
 
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
-const TaskComp: React.FC<{ task: any }> = (props) => {
+const TaskComp: React.FC<{
+    task: any;
+    collapsibleState: any;
+    setCollapsibleState: any;
+}> = (props) => {
     const [isHovered, setIsHovered] = React.useState(false);
 
     const handleMouseEnter = () => {
@@ -24,6 +29,14 @@ const TaskComp: React.FC<{ task: any }> = (props) => {
     const buttonStyle = {
         display: isHovered ? "block" : "none",
     };
+
+    async function submitTaskDeletion(event: any) {
+        event.preventDefault();
+        await axios.delete(
+            process.env.REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id
+        );
+        props.setCollapsibleState(!props.collapsibleState);
+    }
 
     return (
         <div
@@ -61,7 +74,11 @@ const TaskComp: React.FC<{ task: any }> = (props) => {
                     <IconButton aria-label="edit" size="small">
                         <EditOutlinedIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" size="small">
+                    <IconButton
+                        aria-label="delete"
+                        size="small"
+                        onClick={submitTaskDeletion}
+                    >
                         <DeleteOutlinedIcon />
                     </IconButton>
                 </Stack>
