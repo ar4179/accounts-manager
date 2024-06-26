@@ -53,15 +53,16 @@ const TaskComps: React.FC<{
         props.setCollapsibleState(!props.collapsibleState);
     }
 
+    // WHENEVER TASK CHANGES THIS IS CALLED AHSHAHD SAHDJAS
     const [tasks, setTasks] = React.useState(false);
     async function handleSubmitSave(event: any) {
         event.preventDefault();
         const fd = new FormData(event.target);
         const data = Object.fromEntries(fd.entries());
-        console.log("The entries: ", data);
 
         let promises: any[];
         promises = [];
+
         async function updateTasks() {
             Object.keys(data).forEach((key) => {
                 const response = axios.patch(
@@ -113,6 +114,7 @@ const TaskComps: React.FC<{
                         task={task}
                         collapsibleState={props.collapsibleState}
                         setCollapsibleState={props.setCollapsibleState}
+                        account_id={props.account_id}
                     />
                 ))}
                 <div className="row">
