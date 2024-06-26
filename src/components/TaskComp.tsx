@@ -80,29 +80,37 @@ const TaskComp: React.FC<{
             onMouseLeave={handleMouseLeave}
         >
             <div className="col-10">
-                {props.task.title}
-
-                <Box sx={{ width: 400 }}>
-                    <Slider
-                        aria-label="Temperature"
-                        defaultValue={props.task.percentComplete}
-                        getAriaValueText={valuetext}
-                        valueLabelDisplay="auto"
-                        color={
-                            props.task.priority === "normal"
-                                ? "info"
-                                : props.task.priority === "high"
-                                ? "secondary"
-                                : "success"
-                        }
-                        shiftStep={20}
-                        step={10}
-                        marks
-                        min={0}
-                        max={100}
-                        name={props.task._id}
-                    />
-                </Box>
+                <div>
+                    <Typography variant="body1">{props.task.title}</Typography>
+                </div>
+                <div>
+                    <Typography variant="subtitle2">
+                        {props.task.description}
+                    </Typography>
+                </div>
+                <div>
+                    <Box sx={{ width: 400 }}>
+                        <Slider
+                            aria-label="Temperature"
+                            defaultValue={props.task.percentComplete}
+                            getAriaValueText={valuetext}
+                            valueLabelDisplay="auto"
+                            color={
+                                props.task.priority === "normal"
+                                    ? "info"
+                                    : props.task.priority === "high"
+                                    ? "secondary"
+                                    : "success"
+                            }
+                            shiftStep={20}
+                            step={10}
+                            marks
+                            min={0}
+                            max={100}
+                            name={props.task._id}
+                        />
+                    </Box>
+                </div>
             </div>
             <div className="col-2">
                 <Stack spacing={1} direction="row" style={buttonStyle}>

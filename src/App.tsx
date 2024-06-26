@@ -19,6 +19,15 @@ const theme = createTheme({
         secondary: red,
         success: blueGrey,
     },
+    typography: {
+        subtitle2: {
+            fontStyle: "italic",
+            color: "grey",
+        },
+        body1: {
+            fontWeight: 500,
+        },
+    },
 });
 
 const style = {
