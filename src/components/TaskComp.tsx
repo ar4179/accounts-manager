@@ -90,9 +90,9 @@ const TaskComp: React.FC<{
                         valueLabelDisplay="auto"
                         color={
                             props.task.priority === "normal"
-                                ? "primary"
+                                ? "info"
                                 : props.task.priority === "high"
-                                ? "warning"
+                                ? "secondary"
                                 : "success"
                         }
                         shiftStep={20}
