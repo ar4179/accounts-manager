@@ -53,7 +53,6 @@ const TaskComps: React.FC<{
         props.setCollapsibleState(!props.collapsibleState);
     }
 
-    // WHENEVER TASK CHANGES THIS IS CALLED AHSHAHD SAHDJAS
     const [tasks, setTasks] = React.useState(false);
     async function handleSubmitSave(event: any) {
         event.preventDefault();

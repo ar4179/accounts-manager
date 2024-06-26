@@ -8,14 +8,11 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import { useState, useEffect } from "react";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -53,11 +50,6 @@ const TaskComp: React.FC<{
 
     const buttonStyle = {
         display: isHovered ? "block" : "none",
-    };
-
-    const [priority, setPriority] = React.useState("");
-    const handleChange = (event: SelectChangeEvent) => {
-        setPriority(event.target.value as string);
     };
 
     async function submitTaskDeletion(event: any) {
@@ -100,7 +92,7 @@ const TaskComp: React.FC<{
                             props.task.priority === "normal"
                                 ? "primary"
                                 : props.task.priority === "high"
-                                ? "error"
+                                ? "warning"
                                 : "success"
                         }
                         shiftStep={20}
