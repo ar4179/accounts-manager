@@ -82,8 +82,8 @@ function App() {
         <ThemeProvider theme={theme}>
             <div>
                 <div className="row">
-                    <div className="col-2"></div>
-                    <div className="col-6" id="main-title">
+                    <div className="col-1"></div>
+                    <div className="col-8" id="main-title">
                         <h1>Account Manager</h1>
                     </div>
                     <div className="col-2">
@@ -139,15 +139,15 @@ function App() {
                     </Box>
                 </Modal>
                 <div className="row">
-                    <div className="col-2"></div>
-                    <div className="col-8">
+                    <div className="col-1"></div>
+                    <div className="col-10">
                         <Collapsibles
                             accounts={accounts}
                             collapsibleState={collapsibleState}
                             setCollapsibleState={setCollapsibleState}
                         />
                     </div>
-                    <div className="col-2"></div>
+                    <div className="col-1"></div>
                 </div>
             </div>
         </ThemeProvider>
