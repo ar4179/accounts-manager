@@ -1,7 +1,8 @@
 import React from "react";
 import TaskComp from "./TaskComp";
 import axios from "axios";
-
+import IconButton from "@mui/material/IconButton";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -116,9 +117,10 @@ const TaskComps: React.FC<{
                         account_id={props.account_id}
                     />
                 ))}
+
                 <div className="row">
-                    <div className="col-4">
-                        <Stack spacing={2} direction="row">
+                    <div className="col-9">
+                        <Stack spacing={3} direction="row">
                             <Button variant="contained" type="submit">
                                 Save
                             </Button>
@@ -127,14 +129,13 @@ const TaskComps: React.FC<{
                             </Button>
                         </Stack>
                     </div>
-                    <div className="col-6"></div>
-                    <div className="col-2">
+                    <div className="col-3 text-right">
                         <Button
-                            variant="contained"
+                            variant="outlined"
                             color="error"
                             onClick={submitDeletion}
                         >
-                            Delete
+                            Delete Account
                         </Button>
                     </div>
                 </div>

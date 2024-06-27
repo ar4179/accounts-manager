@@ -112,8 +112,8 @@ const TaskComp: React.FC<{
                     </Box>
                 </div>
             </div>
-            <div className="col-2">
-                <Stack spacing={1} direction="row" style={buttonStyle}>
+            <div className="col-2 text-center">
+                <Stack spacing={2} direction="row" style={buttonStyle}>
                     <IconButton
                         aria-label="edit"
                         size="small"
