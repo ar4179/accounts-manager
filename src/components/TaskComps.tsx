@@ -82,7 +82,6 @@ const TaskComps: React.FC<{
         const fd = new FormData(event.target);
         let data = Object.fromEntries(fd.entries());
         // first create the task and then use the new task id in the response to update account
-        console.log(data);
         const response_task = await axios.post(
             process.env.REACT_APP_DB_URL + "api/v1/tasks/",
             data
