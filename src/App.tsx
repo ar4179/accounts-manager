@@ -14,6 +14,9 @@ import TextField from "@mui/material/TextField";
 import Collapsibles from "./components/Collapsibles";
 import { red, blueGrey } from "@mui/material/colors";
 
+//Add archive functionality
+//Add multiline description
+
 const theme = createTheme({
     palette: {
         secondary: red,
