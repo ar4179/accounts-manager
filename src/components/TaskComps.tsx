@@ -1,8 +1,6 @@
 import React from "react";
 import TaskComp from "./TaskComp";
 import axios from "axios";
-import IconButton from "@mui/material/IconButton";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import { REACT_APP_DB_URL } from "../index";
 
 const style = {
     position: "absolute" as "absolute",
@@ -49,7 +48,7 @@ const TaskComps: React.FC<{
     async function submitDeletion(event: any) {
         event.preventDefault();
         await axios.delete(
-            process.env.REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id
+            REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id
         );
         props.setCollapsibleState(!props.collapsibleState);
     }
@@ -66,7 +65,7 @@ const TaskComps: React.FC<{
         async function updateTasks() {
             Object.keys(data).forEach((key) => {
                 const response = axios.patch(
-                    process.env.REACT_APP_DB_URL + "api/v1/tasks/" + key,
+                    REACT_APP_DB_URL + "api/v1/tasks/" + key,
                     { percentComplete: data[key] }
                 );
                 promises.push(response);
@@ -84,22 +83,20 @@ const TaskComps: React.FC<{
         let data = Object.fromEntries(fd.entries());
         // first create the task and then use the new task id in the response to update account
         const response_task = await axios.post(
-            process.env.REACT_APP_DB_URL + "api/v1/tasks/",
+            REACT_APP_DB_URL + "api/v1/tasks/",
             data
         );
         const newTaskID = response_task.data.data.task._id;
 
         const response_currTasks = await axios.get(
-            process.env.REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id
+            REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id
         );
 
         let currTasks = response_currTasks.data.data.account.tasks;
         currTasks.push(newTaskID);
 
         await axios.patch(
-            process.env.REACT_APP_DB_URL +
-                "api/v1/accounts/" +
-                props.account_id,
+            REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id,
             { tasks: currTasks }
         );
         handleClose();

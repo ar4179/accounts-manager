@@ -13,6 +13,7 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Collapsibles from "./components/Collapsibles";
 import { red, blueGrey } from "@mui/material/colors";
+import { REACT_APP_DB_URL } from "./index";
 
 //Add archive functionality
 //Add multiline description
@@ -57,7 +58,7 @@ function App() {
     useEffect(() => {
         async function fetchAccounts() {
             const response = await axios.get(
-                process.env.REACT_APP_DB_URL + "api/v1/accounts"
+                REACT_APP_DB_URL + "api/v1/accounts"
             );
 
             setAccounts(response.data.data.accountsWithTasks);
@@ -72,10 +73,7 @@ function App() {
         let newData = {};
         newData = { name: data["name"], tasks: [] };
 
-        await axios.post(
-            process.env.REACT_APP_DB_URL + "api/v1/accounts/",
-            newData
-        );
+        await axios.post(REACT_APP_DB_URL + "api/v1/accounts/", newData);
 
         setCollapsibleState(!collapsibleState);
         handleClose();

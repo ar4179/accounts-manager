@@ -13,6 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
+import { REACT_APP_DB_URL } from "../index";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -55,7 +56,7 @@ const TaskComp: React.FC<{
     async function submitTaskDeletion(event: any) {
         event.preventDefault();
         await axios.delete(
-            process.env.REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id
+            REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id
         );
         props.setCollapsibleState(!props.collapsibleState);
     }
@@ -65,7 +66,7 @@ const TaskComp: React.FC<{
         let data = Object.fromEntries(fd.entries());
 
         await axios.patch(
-            process.env.REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id,
+            REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id,
             data
         );
 
