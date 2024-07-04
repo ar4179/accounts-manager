@@ -164,8 +164,10 @@ const TaskComps: React.FC<{
                         <div className="form-Row">
                             <TextField
                                 fullWidth
-                                id="standard-basic"
+                                id="standard-multiline-flexible"
                                 label="Description"
+                                multiline
+                                maxRows={4}
                                 variant="standard"
                                 name="description"
                             />

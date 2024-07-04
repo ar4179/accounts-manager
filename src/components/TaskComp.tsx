@@ -55,9 +55,7 @@ const TaskComp: React.FC<{
 
     async function submitTaskDeletion(event: any) {
         event.preventDefault();
-        await axios.delete(
-            REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id
-        );
+        await axios.delete(REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id);
         props.setCollapsibleState(!props.collapsibleState);
     }
 
@@ -84,7 +82,7 @@ const TaskComp: React.FC<{
                 <div>
                     <Typography variant="body1">{props.task.title}</Typography>
                 </div>
-                <div>
+                <div style={{ whiteSpace: "pre-wrap" }}>
                     <Typography variant="subtitle2">
                         {props.task.description}
                     </Typography>
@@ -165,8 +163,10 @@ const TaskComp: React.FC<{
                         <div className="form-Row">
                             <TextField
                                 fullWidth
-                                id="standard-basic"
+                                id="standard-multiline-flexible"
                                 label="Description"
+                                multiline
+                                maxRows={4}
                                 variant="standard"
                                 name="description"
                                 defaultValue={props.task.description}
