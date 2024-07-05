@@ -12,6 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { REACT_APP_DB_URL } from "../index";
 
 const style = {
@@ -26,11 +28,17 @@ const style = {
     p: 4,
 };
 
+// on add task put a default value of false for archived and display:hidden the whole input
+// on edit same thing but don't hide it
+
+// edit getTasks so that the archived tasks are at the end of the list
+
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
 const TaskComps: React.FC<{
+    archived: boolean;
     tasks: any[];
     account_id: String;
     collapsibleState: any;
@@ -81,7 +89,13 @@ const TaskComps: React.FC<{
         event.preventDefault();
         const fd = new FormData(event.target);
         let data = Object.fromEntries(fd.entries());
+
+        if (!("archived" in data)) {
+            data["archived"] = "false";
+        }
+
         // first create the task and then use the new task id in the response to update account
+        console.log(data);
         const response_task = await axios.post(
             REACT_APP_DB_URL + "api/v1/tasks/",
             data
@@ -102,18 +116,29 @@ const TaskComps: React.FC<{
         handleClose();
         props.setCollapsibleState(!props.collapsibleState);
     }
+
+    const [taskArchived, setTaskArchived] = React.useState(false);
+    const handleArchivedTaskChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setTaskArchived(event.target.checked);
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmitSave}>
-                {props.tasks.map((task) => (
-                    <TaskComp
-                        key={task._id}
-                        task={task}
-                        collapsibleState={props.collapsibleState}
-                        setCollapsibleState={props.setCollapsibleState}
-                        account_id={props.account_id}
-                    />
-                ))}
+                {props.tasks
+                    .filter((task) => !(task.archived && props.archived))
+                    .map((task) => (
+                        <TaskComp
+                            archived={props.archived}
+                            key={task._id}
+                            task={task}
+                            collapsibleState={props.collapsibleState}
+                            setCollapsibleState={props.setCollapsibleState}
+                            account_id={props.account_id}
+                        />
+                    ))}
 
                 <div className="row">
                     <div className="col-9">
@@ -207,10 +232,23 @@ const TaskComps: React.FC<{
                                 />
                             </Box>
                         </div>
+                        <div className="form-Row" style={{ display: "none" }}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        value={taskArchived}
+                                        color="default"
+                                        name="archived"
+                                        onChange={handleArchivedTaskChange}
+                                    />
+                                }
+                                label="Archived"
+                            />
+                        </div>
                         <div className="form-Row">
                             <Stack spacing={2} direction="row">
                                 <Button variant="contained" type="submit">
-                                    Add
+                                    Add Task
                                 </Button>
 
                                 <Button

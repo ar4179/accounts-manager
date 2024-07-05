@@ -12,11 +12,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Collapsibles from "./components/Collapsibles";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import { red, blueGrey } from "@mui/material/colors";
 import { REACT_APP_DB_URL } from "./index";
 
 //Add archive functionality
-//Add multiline description
 
 const theme = createTheme({
     palette: {
@@ -79,22 +80,40 @@ function App() {
         handleClose();
     }
 
+    const [archived, setArchived] = useState(true);
+    const handleArchivedChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setArchived(event.target.checked);
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <div>
                 <div className="row">
-                    <div className="col-10" id="main-title">
+                    <div className="col-8" id="main-title">
                         <h1>Account Manager</h1>
                     </div>
-                    <div className="col-2">
-                        {" "}
-                        <Button
-                            variant="contained"
-                            onClick={handleOpen}
-                            id="add-account-button"
-                        >
-                            New Account
-                        </Button>
+                    <div className="col-4">
+                        <Stack spacing={4} direction="row">
+                            <FormControlLabel
+                                style={{ marginTop: "50px" }}
+                                control={
+                                    <Switch
+                                        checked={archived}
+                                        onChange={handleArchivedChange}
+                                    />
+                                }
+                                label="Hide Archived"
+                            />
+                            <Button
+                                variant="contained"
+                                onClick={handleOpen}
+                                id="add-account-button"
+                            >
+                                New Account
+                            </Button>
+                        </Stack>
                     </div>
                 </div>
                 <Modal
@@ -141,6 +160,7 @@ function App() {
                 <div className="row">
                     <div className="col-12">
                         <Collapsibles
+                            archived={archived}
                             accounts={accounts}
                             collapsibleState={collapsibleState}
                             setCollapsibleState={setCollapsibleState}

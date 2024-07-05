@@ -13,6 +13,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { REACT_APP_DB_URL } from "../index";
 
 function valuetext(value: number) {
@@ -32,6 +34,7 @@ const style = {
 };
 
 const TaskComp: React.FC<{
+    archived: boolean;
     task: any;
     collapsibleState: any;
     setCollapsibleState: any;
@@ -63,6 +66,10 @@ const TaskComp: React.FC<{
         const fd = new FormData(event.target);
         let data = Object.fromEntries(fd.entries());
 
+        if (!("archived" in data)) {
+            data["archived"] = "false";
+        }
+
         await axios.patch(
             REACT_APP_DB_URL + "api/v1/tasks/" + props.task._id,
             data
@@ -71,6 +78,15 @@ const TaskComp: React.FC<{
         handleClose();
         props.setCollapsibleState(!props.collapsibleState);
     }
+
+    const [taskArchivedEdit, setTaskArchivedEdit] = React.useState(
+        props.task.archived
+    );
+    const handleArchivedTaskEditChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setTaskArchivedEdit(event.target.checked);
+    };
 
     return (
         <div
@@ -107,6 +123,7 @@ const TaskComp: React.FC<{
                             min={0}
                             max={100}
                             name={props.task._id}
+                            disabled={props.task.archived}
                         />
                     </Box>
                 </div>
@@ -192,6 +209,20 @@ const TaskComp: React.FC<{
                                     <option value="high">High</option>
                                 </NativeSelect>
                             </FormControl>
+                        </div>
+                        <div className="form-Row">
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        value={taskArchivedEdit}
+                                        checked={taskArchivedEdit}
+                                        color="default"
+                                        name="archived"
+                                        onChange={handleArchivedTaskEditChange}
+                                    />
+                                }
+                                label="Archived"
+                            />
                         </div>
                         <div className="form-Row">
                             <Stack spacing={2} direction="row">
