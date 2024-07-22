@@ -25,6 +25,7 @@ const Collapsibles: React.FC<{
                         archived={props.archived}
                         key={account._id}
                         tasks={account.tasks}
+                        accountName={account.name}
                         account_id={account._id}
                         collapsibleState={props.collapsibleState}
                         setCollapsibleState={props.setCollapsibleState}

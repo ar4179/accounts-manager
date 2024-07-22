@@ -40,6 +40,7 @@ function valuetext(value: number) {
 const TaskComps: React.FC<{
     archived: boolean;
     tasks: any[];
+    accountName: String;
     account_id: String;
     collapsibleState: any;
     setCollapsibleState: any;
@@ -48,10 +49,26 @@ const TaskComps: React.FC<{
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [openNameEdit, setOpenNameEdit] = React.useState(false);
+    const handleOpenNameEdit = () => setOpenNameEdit(true);
+    const handleCloseNameEdit = () => setOpenNameEdit(false);
+
     const [priority, setPriority] = React.useState("");
     const handleChange = (event: SelectChangeEvent) => {
         setPriority(event.target.value as string);
     };
+
+    async function handleSubmitNameEdit(event: any) {
+        event.preventDefault();
+        const fd = new FormData(event.target);
+        const data = Object.fromEntries(fd.entries());
+        await axios.patch(
+            REACT_APP_DB_URL + "api/v1/accounts/" + props.account_id,
+            data
+        );
+        handleCloseNameEdit();
+        props.setCollapsibleState(!props.collapsibleState);
+    }
 
     async function submitDeletion(event: any) {
         event.preventDefault();
@@ -149,6 +166,12 @@ const TaskComps: React.FC<{
                             <Button variant="contained" onClick={handleOpen}>
                                 Add
                             </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleOpenNameEdit}
+                            >
+                                Edit Account Name
+                            </Button>
                         </Stack>
                     </div>
                     <div className="col-3 text-right">
@@ -162,6 +185,50 @@ const TaskComps: React.FC<{
                     </div>
                 </div>
             </form>
+
+            <Modal
+                open={openNameEdit}
+                onClose={handleCloseNameEdit}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <form onSubmit={handleSubmitNameEdit}>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                        >
+                            Edit Account
+                        </Typography>
+                        <div className="form-Row">
+                            <TextField
+                                fullWidth
+                                id="standard-basic"
+                                label="Account Name"
+                                variant="standard"
+                                name="name"
+                                defaultValue={props.accountName}
+                            />
+                        </div>
+                        <div className="form-Row">
+                            <Stack spacing={2} direction="row">
+                                <Button variant="contained" type="submit">
+                                    Save
+                                </Button>
+
+                                <Button
+                                    variant="contained"
+                                    onClick={() => handleCloseNameEdit()}
+                                >
+                                    Cancel
+                                </Button>
+                            </Stack>
+                        </div>
+                    </form>
+                </Box>
+            </Modal>
+
             <Modal
                 open={open}
                 onClose={handleClose}

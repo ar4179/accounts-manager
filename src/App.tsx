@@ -17,8 +17,6 @@ import Switch from "@mui/material/Switch";
 import { red, blueGrey } from "@mui/material/colors";
 import { REACT_APP_DB_URL } from "./index";
 
-//Add archive functionality
-
 const theme = createTheme({
     palette: {
         secondary: red,
